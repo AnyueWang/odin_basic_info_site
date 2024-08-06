@@ -1,36 +1,28 @@
-const http = require('http')
-const fs = require('fs')
 const path = require('path')
+const express = require('express')
+require('dotenv').config
+const app = express()
 
-const port = 8080
+const PORT = process.env.PORT || 8080
 
-http.createServer((req, res) => {
-  const url = req.url
-  let filePath
-  switch (url) {
-    case '/':
-      filePath = './index.html'
-      break;
-    case '/about':
-      filePath = './about.html'
-      break;
-    case '/contact-me':
-      filePath = './contact-me.html'
-      break;
-    default:
-      filePath = './404.html'
-      break;
-  }
-  fs.readFile(path.resolve(__dirname, filePath), (err, data) => {
-    if (err) {
-      console.error(err)
-      return
-    }
-    res.writeHead(200, { 'Content-Type': 'text/html' })
-    res.write(data)
-    return res.end()
-  })
-}).listen(port, () => {
-  console.log(`The server is running on port ${port}`)
+app.get('/', (req, res) => {
+  const filePath = './index.html'
+  res.sendFile(path.resolve(__dirname, filePath))
 })
 
+app.get('/about', (req, res) => {
+  const filePath = './about.html'
+  res.sendFile(path.resolve(__dirname, filePath))
+})
+
+app.get('/contact-me', (req, res) => {
+  const filePath = './contact-me.html'
+  res.sendFile(path.resolve(__dirname, filePath))
+})
+
+app.use((req, res) => {
+  const filePath = './404.html'
+  res.status(404).sendFile(path.resolve(__dirname, filePath))
+})
+
+app.listen(PORT, ()=>console.log(`The server is running on port ${PORT}!`))
