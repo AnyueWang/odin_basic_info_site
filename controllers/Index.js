@@ -1,18 +1,13 @@
-const path = require('path')
-
 const getHome = (req, res) => {
-  const filePath = '../views/index.html'
-  res.sendFile(path.resolve(__dirname, filePath))
+  res.render('index', { title: 'Home' })
 }
 
 const getAbout = (req, res) => {
-  const filePath = '../views/about.html'
-  res.sendFile(path.resolve(__dirname, filePath))
+  res.render('index', { title: 'About' })
 }
 
 const getContact = (req, res) => {
-  const filePath = '../views/contact-me.html'
-  res.sendFile(path.resolve(__dirname, filePath))
+  res.render('index', { title: 'Contact Me' })
 }
 
 module.exports = {

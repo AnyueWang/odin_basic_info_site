@@ -1,8 +1,5 @@
-const path = require('path')
-
 const get404 = (req, res) => {
-  const filePath = '../views/404.html'
-  res.status(404).sendFile(path.resolve(__dirname, filePath))
+  res.status(404).send('<h1>404</h1>')
 }
 
 module.exports = {
